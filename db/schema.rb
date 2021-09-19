@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_19_015229) do
+ActiveRecord::Schema.define(version: 2021_09_19_192432) do
 
   create_table "courier_requests", force: :cascade do |t|
     t.integer "weight", null: false
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2021_09_19_015229) do
     t.string "tracking_number", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "sender_email"
+    t.string "receiver_email"
   end
 
 end

@@ -11,11 +11,13 @@ RSpec.describe CourierRequest, type: :model do
     it { should have_db_column(:sender_address).of_type(:text)  }
     it { should have_db_column(:sender_phone).of_type(:string)  }
     it { should have_db_column(:sender_pincode).of_type(:string)  }
+    it { should have_db_column(:sender_email).of_type(:string)  }
 
     it { should have_db_column(:receiver_fullname).of_type(:string)  }
     it { should have_db_column(:receiver_address).of_type(:text)  }
     it { should have_db_column(:receiver_phone).of_type(:string)  }
     it { should have_db_column(:receiver_pincode).of_type(:string)  }
+    it { should have_db_column(:receiver_email).of_type(:string)  }
 
     it { should have_db_column(:tracking_number).of_type(:string)  }
 
@@ -26,7 +28,7 @@ RSpec.describe CourierRequest, type: :model do
   context 'validations' do
     subject { FactoryBot.build(:courier_request) }
 
-    (CourierRequest.attribute_names.map(&:to_sym) - [:id, :created_at, :updated_at, :tracking_number]).each do |cr_attr|
+    (CourierRequest.attribute_names.map(&:to_sym) - [:id, :created_at, :updated_at, :tracking_number, :sender_email, :receiver_email]).each do |cr_attr|
       it { should validate_presence_of(cr_attr) }
     end
 
