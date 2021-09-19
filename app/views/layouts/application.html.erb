@@ -36,9 +36,12 @@
   </header>
 
     <br /><br /><br /><br />
-    <% flash.each do |key, value| %>
-        <div class="<%= flash_class(key.to_sym) %>"><%= value %></div>
-    <% end %>
-    <%= yield %>
+    <div class="container-fluid">
+      <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key.to_sym) %>"><%= value %></div>
+      <% end %>
+      <%= yield %>
+    </div>
+
   </body>
 </html>
