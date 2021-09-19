@@ -17,6 +17,11 @@ class CourierRequest < ApplicationRecord
 
   before_validation :set_tracking_number, on: [:create]
 
+  def notify_users
+    CourierRequestMailer.with(courier_request: self).receiver_email.deliver_now if receiver_email
+    CourierRequestMailer.with(courier_request: self).sender_email.deliver_now if sender_email
+  end
+
 
   private
 

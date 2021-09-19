@@ -25,6 +25,7 @@ class CourierRequestsController < ApplicationController
 
     respond_to do |format|
       if @courier_request.save
+        @courier_request.notify_users
         format.html { redirect_to @courier_request, notice: "Courier request was successfully created." }
         format.json { render :show, status: :created, location: @courier_request }
       else
@@ -64,6 +65,8 @@ class CourierRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def courier_request_params
-      params.require(:courier_request).permit(:weight, :service_type, :cost, :payment_mode, :status, :sender_fullname, :sender_address, :sender_phone, :sender_pincode, :receiver_fullname, :receiver_address, :receiver_phone, :receiver_pincode, :tracking_number)
+      params.require(:courier_request).permit(:weight, :service_type, :cost, :payment_mode, :status, :sender_fullname, :sender_address, :sender_phone, :sender_pincode,
+                                              :receiver_fullname, :receiver_address, :receiver_phone, :receiver_pincode, :tracking_number,
+                                              :sender_email, :receiver_email)
     end
 end
