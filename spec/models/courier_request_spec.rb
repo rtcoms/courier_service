@@ -23,4 +23,9 @@ RSpec.describe CourierRequest, type: :model do
     it { should have_db_column(:updated_at).of_type(:datetime)  }
 
   end
+
+  describe 'validations' do
+    it { should validate_presence_of(:weight)  }
+    it { should validate_presence_of(:cost)  }
+  end
 end
