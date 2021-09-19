@@ -6,6 +6,18 @@ class CourierRequestsController < ApplicationController
     @courier_requests = CourierRequest.all
   end
 
+  def search
+    search_param = params[:search]
+    if search_param
+      tracking_number = search_param[:query].upcase
+      @courier_request = CourierRequest.find_by(tracking_number: tracking_number)
+
+      redirect_to search_courier_requests_path, alert: "Tracking number must be present" and return if search_param && search_param[:query].blank?
+      redirect_to courier_request_path(@courier_request), notice: "Found courier request for tracking number: #{tracking_number}" and return if @courier_request.present?
+      redirect_to search_courier_requests_path, alert: "Courier request not found for tracking number: #{tracking_number}" and return
+    end
+  end
+
   # GET /courier_requests/1 or /courier_requests/1.json
   def show
   end
@@ -68,5 +80,6 @@ class CourierRequestsController < ApplicationController
       params.require(:courier_request).permit(:weight, :service_type, :cost, :payment_mode, :status, :sender_fullname, :sender_address, :sender_phone, :sender_pincode,
                                               :receiver_fullname, :receiver_address, :receiver_phone, :receiver_pincode, :tracking_number,
                                               :sender_email, :receiver_email)
+
     end
 end

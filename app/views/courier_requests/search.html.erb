@@ -1,0 +1,11 @@
+<main class="form-signin text-center">
+
+  <h1 class="h3 mb-3 fw-normal">Search</h1>
+
+    <%= simple_form_for :search, url: search_courier_requests_path, method: "GET" do |f| %>
+      <div class="form-floating">
+        <%= f.input :query, label: false, input_html: {value: "", class: 'form-control', placeholder: 'Tracking Number' } %>
+      </div>
+      <%= f.submit "Search", class: "w-100 btn btn-lg btn-primary" %>
+    <% end %>
+</main>
