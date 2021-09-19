@@ -13,7 +13,7 @@
             <%= f.input :weight %>
           </div>
           <div class="col-md">
-            <%= f.input :service_type %>
+            <%= f.input :service_type, collection: CourierRequest.service_types.keys %>
           </div>
         </div>
       </div>
@@ -24,10 +24,7 @@
         <h5>Tracking Details </h5>
         <div class="row g-2">
           <div class="col-md">
-          <%= f.input :status %>
-          </div>
-          <div class="col-md">
-          <%= f.input :tracking_number %>
+          <%= f.input :status, collection: CourierRequest.statuses.keys %>
           </div>
         </div>
       </div>
@@ -41,7 +38,7 @@
           <%= f.input :cost %>
           </div>
           <div class="col-md">
-          <%= f.input :payment_mode %>
+          <%= f.input :payment_mode, collection: CourierRequest.payment_modes.keys %>
           </div>
         </div>
       </div>
