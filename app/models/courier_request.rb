@@ -1,0 +1,2 @@
+class CourierRequest < ApplicationRecord
+end

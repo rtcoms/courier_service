@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @courier_request.weight %>
+</p>
+
+<p>
+  <strong>Service type:</strong>
+  <%= @courier_request.service_type %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @courier_request.cost %>
+</p>
+
+<p>
+  <strong>Payment mode:</strong>
+  <%= @courier_request.payment_mode %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @courier_request.status %>
+</p>
+
+<p>
+  <strong>Sender fullname:</strong>
+  <%= @courier_request.sender_fullname %>
+</p>
+
+<p>
+  <strong>Sender address:</strong>
+  <%= @courier_request.sender_address %>
+</p>
+
+<p>
+  <strong>Sender phone:</strong>
+  <%= @courier_request.sender_phone %>
+</p>
+
+<p>
+  <strong>Sender pincode:</strong>
+  <%= @courier_request.sender_pincode %>
+</p>
+
+<p>
+  <strong>Receiver fullname:</strong>
+  <%= @courier_request.receiver_fullname %>
+</p>
+
+<p>
+  <strong>Receiver address:</strong>
+  <%= @courier_request.receiver_address %>
+</p>
+
+<p>
+  <strong>Receiver phone:</strong>
+  <%= @courier_request.receiver_phone %>
+</p>
+
+<p>
+  <strong>Receiver pincode:</strong>
+  <%= @courier_request.receiver_pincode %>
+</p>
+
+<p>
+  <strong>Tracking number:</strong>
+  <%= @courier_request.tracking_number %>
+</p>
+
+<%= link_to 'Edit', edit_courier_request_path(@courier_request) %> |
+<%= link_to 'Back', courier_requests_path %>

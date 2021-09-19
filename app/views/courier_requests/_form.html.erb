@@ -1,0 +1,85 @@
+
+<%= simple_form_for(@courier_request) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+
+    <div class="card">
+      <div class="card-body">
+        <h5>Main Details </h5>
+        <div class="row g-2">
+          <div class="col-md">
+            <%= f.input :weight %>
+          </div>
+          <div class="col-md">
+            <%= f.input :service_type %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5>Tracking Details </h5>
+        <div class="row g-2">
+          <div class="col-md">
+          <%= f.input :status %>
+          </div>
+          <div class="col-md">
+          <%= f.input :tracking_number %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5>Payment Details </h5>
+        <div class="row g-2">
+          <div class="col-md">
+          <%= f.input :cost %>
+          </div>
+          <div class="col-md">
+          <%= f.input :payment_mode %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5>Sender Details </h5>
+        <div class="row g-2">
+          <div class="col-md">
+            <%= f.input :sender_fullname %>
+            <%= f.input :sender_phone %>
+          </div>
+          <div class="col-md">
+            <%= f.input :sender_address %>
+            <%= f.input :sender_pincode %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5>Receiver Details </h5>
+        <div class="row g-2">
+          <div class="col-md">
+            <%= f.input :receiver_fullname %>
+            <%= f.input :receiver_phone %>
+          </div>
+          <div class="col-md">
+            <%= f.input :receiver_address %>
+            <%= f.input :receiver_pincode %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
