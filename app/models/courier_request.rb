@@ -7,13 +7,15 @@ class CourierRequest < ApplicationRecord
   validates :weight, :cost, :status, :payment_mode, :service_type,
             :sender_fullname, :sender_address, :sender_phone, :sender_pincode,
             :receiver_fullname, :receiver_address, :receiver_phone, :receiver_pincode,
-            :tracking_number,
+            :tracking_number, :user_id,
             presence: true
 
   validates_inclusion_of :status, in: statuses.keys
   validates :tracking_number, uniqueness: true, allow_nil: false
   validates :cost, numericality: { greater_than: 0 }
   validates :weight, numericality: { greater_than: 0 }
+
+  belongs_to :user
 
   before_validation :set_tracking_number, on: [:create]
   after_create_commit :notify_users

@@ -14,5 +14,7 @@ FactoryBot.define do
     status { CourierRequest.statuses.keys.sample }
     tracking_number { 'TRCKN' }
     weight {211}
+
+    association :user
   end
 end

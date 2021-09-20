@@ -1,16 +1,17 @@
 class CourierRequestsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_courier_request, only: %i[ show edit update destroy ]
 
   # GET /courier_requests or /courier_requests.json
   def index
-    @courier_requests = CourierRequest.all
+    @courier_requests = current_user.courier_requests
   end
 
   def search
     search_param = params[:search]
     if search_param
       tracking_number = search_param[:query].upcase
-      @courier_request = CourierRequest.find_by(tracking_number: tracking_number)
+      @courier_request = current_user.courier_requests.find_by(tracking_number: tracking_number)
 
       redirect_to search_courier_requests_path, alert: "Tracking number must be present" and return if search_param && search_param[:query].blank?
       redirect_to courier_request_path(@courier_request), notice: "Found courier request for tracking number: #{tracking_number}" and return if @courier_request.present?
@@ -33,11 +34,10 @@ class CourierRequestsController < ApplicationController
 
   # POST /courier_requests or /courier_requests.json
   def create
-    @courier_request = CourierRequest.new(courier_request_params)
+    @courier_request = current_user.courier_requests.build(courier_request_params)
 
     respond_to do |format|
       if @courier_request.save
-        @courier_request.notify_users
         format.html { redirect_to @courier_request, notice: "Courier request was successfully created." }
         format.json { render :show, status: :created, location: @courier_request }
       else
@@ -72,7 +72,7 @@ class CourierRequestsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_courier_request
-      @courier_request = CourierRequest.find(params[:id])
+      @courier_request = current_user.courier_requests.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
