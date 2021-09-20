@@ -21,6 +21,8 @@ RSpec.describe CourierRequest, type: :model do
 
     it { should have_db_column(:tracking_number).of_type(:string)  }
 
+    it { should have_db_column(:user_id).of_type(:integer)  }
+
     it { should have_db_column(:created_at).of_type(:datetime)  }
     it { should have_db_column(:updated_at).of_type(:datetime)  }
   end
@@ -61,13 +63,14 @@ RSpec.describe CourierRequest, type: :model do
 
   context '#after_commit' do
     it 'deliver email to both sender and receiver' do
-      courier_request_with_sender = FactoryBot.build(:courier_request, sender_email: 'sender@example.com')
+      user = FactoryBot.create(:user)
+      courier_request_with_sender = FactoryBot.build(:courier_request, sender_email: 'sender@example.com', user: user)
       expect { courier_request_with_sender.save! }.to change { ActionMailer::Base.deliveries.count }.by(1)
 
-      courier_request_with_receiver = FactoryBot.build(:courier_request, receiver_email: 'receiver@example.com')
+      courier_request_with_receiver = FactoryBot.build(:courier_request, receiver_email: 'receiver@example.com', user: user)
       expect { courier_request_with_receiver.save! }.to change { ActionMailer::Base.deliveries.count }.by(1)
 
-      courier_request = FactoryBot.build(:courier_request, sender_email: 'sender@example.com', receiver_email: 'receiver@example.com')
+      courier_request = FactoryBot.build(:courier_request, sender_email: 'sender@example.com', receiver_email: 'receiver@example.com', user: user)
       expect { courier_request.save! }.to change { ActionMailer::Base.deliveries.count }.by(2)
     end
   end
