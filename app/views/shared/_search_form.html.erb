@@ -1,0 +1,4 @@
+<%= simple_form_for :search, url: search_courier_requests_path, method: "GET", html: {class: 'd-flex'} do |f| %>
+  <%= f.input :query, label: false, input_html: {value: "", class: 'form-control me-2', placeholder: 'Tracking Number' } %>
+  <%= f.submit "Search", class: "btn btn-outline-success" %>
+<% end %>

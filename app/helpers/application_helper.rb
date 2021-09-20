@@ -7,4 +7,11 @@ module ApplicationHelper
         when :alert then "alert alert-error"
     end
   end
+
+  def nav_link(text, path)
+    options = current_page?(path) ? { class: "nav-link active" } : { class: 'nav-link' }
+    content_tag(:li, options) do
+      link_to text, path
+    end
+  end
 end
