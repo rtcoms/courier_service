@@ -11,6 +11,15 @@
         <%= nav_link('Search', search_courier_requests_path) %>
       </ul>
       <%= render('shared/search_form')%>
+      <ul class="nav">
+        <% unless current_user %>
+          <%= nav_link('Login', new_user_session_path) %>
+          <%= nav_link('Sign up', new_user_registration_path) %>
+        <% else %>
+          <%= nav_link("Hi, #{current_user.email}", edit_user_registration_path) %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete  %>
+        <% end %>
+      </ul>
     </div>
   </div>
 </nav>
