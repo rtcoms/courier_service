@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :courier_requests do
     get 'search', on: :collection
   end
