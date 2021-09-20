@@ -16,14 +16,14 @@ class CourierRequest < ApplicationRecord
   validates :weight, numericality: { greater_than: 0 }
 
   before_validation :set_tracking_number, on: [:create]
-
-  def notify_users
-    CourierRequestMailer.with(courier_request: self).receiver_email.deliver_now if receiver_email
-    CourierRequestMailer.with(courier_request: self).sender_email.deliver_now if sender_email
-  end
-
+  after_create_commit :notify_users
 
   private
+
+  def notify_users
+    CourierRequestMailer.receiver_email(self).deliver_now if receiver_email
+    CourierRequestMailer.sender_email(self).deliver_now if sender_email
+  end
 
   def set_tracking_number
     self.tracking_number = generate_tracking_number

@@ -58,4 +58,19 @@ RSpec.describe CourierRequest, type: :model do
       end
     end
   end
+
+  context '#after_commit' do
+    it 'deliver email to both sender and receiver' do
+      courier_request_with_sender = FactoryBot.build(:courier_request, sender_email: 'sender@example.com')
+      expect { courier_request_with_sender.save! }.to change { ActionMailer::Base.deliveries.count }.by(1)
+
+      courier_request_with_receiver = FactoryBot.build(:courier_request, receiver_email: 'receiver@example.com')
+      expect { courier_request_with_receiver.save! }.to change { ActionMailer::Base.deliveries.count }.by(1)
+
+      courier_request = FactoryBot.build(:courier_request, sender_email: 'sender@example.com', receiver_email: 'receiver@example.com')
+      expect { courier_request.save! }.to change { ActionMailer::Base.deliveries.count }.by(2)
+    end
+  end
+
+
 end
